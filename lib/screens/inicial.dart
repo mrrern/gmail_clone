@@ -62,7 +62,7 @@ class _PortalInicialState extends State<PortalInicial> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        context.pushReplacementNamed('/crear_cuenta');
+                        context.go("/crear_cuenta");
                       },
 
                       child: Container(
@@ -90,9 +90,13 @@ class _PortalInicialState extends State<PortalInicial> {
                       ),
                     ),
                     Container(
-                      decoration: BoxDecoration(color: blue),
+                      decoration: BoxDecoration(color: blue, borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(7),
+                            bottomRight: Radius.circular(7),
+                          ),),
                       width: 50,
                       height: 50,
+                      child: Icon(Icons.arrow_drop_down, color: white,),
                     ),
                   ],
                 ),

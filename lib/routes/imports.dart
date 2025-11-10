@@ -19,6 +19,7 @@ export 'package:gmail_clone/app.dart';
 export 'package:gmail_clone/screens/inicial.dart';
 export 'package:gmail_clone/screens/iniciar_sesion.dart';
 export 'package:gmail_clone/screens/sign_up.dart';
+export 'package:gmail_clone/screens/dashboard.dart';
 
 //Widgets personalizados
 // Todos los widgets reutilizables que vayamos a contruir

@@ -2,6 +2,7 @@
 //Son aquellas que vienen con la app y librerias de terceros
 export 'package:flutter/material.dart';
 export 'package:google_fonts/google_fonts.dart';
+export 'package:go_router/go_router.dart';
 
 //Logica
 //Todos los modelos que la aplicacion necesite
@@ -17,6 +18,7 @@ export 'package:gmail_clone/app.dart';
 //
 export 'package:gmail_clone/screens/inicial.dart';
 export 'package:gmail_clone/screens/iniciar_sesion.dart';
+export 'package:gmail_clone/screens/sign_up.dart';
 
 //Widgets personalizados
 // Todos los widgets reutilizables que vayamos a contruir

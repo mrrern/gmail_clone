@@ -22,7 +22,7 @@ class _PortalInicialState extends State<PortalInicial> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/iniciar_sesion');
+              context.push('/iniciar_sesion');
             },
             child: Container(
               padding: EdgeInsets.all(8),
@@ -61,7 +61,10 @@ class _PortalInicialState extends State<PortalInicial> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        context.pushReplacementNamed('/crear_cuenta');
+                      },
+
                       child: Container(
                         decoration: BoxDecoration(
                           color: blue,

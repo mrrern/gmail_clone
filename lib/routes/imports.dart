@@ -1,11 +1,15 @@
 //Librerias principales
 //Son aquellas que vienen con la app y librerias de terceros
-export 'package:flutter/material.dart';
+export 'package:flutter/material.dart'  ;
 export 'package:google_fonts/google_fonts.dart';
 export 'package:go_router/go_router.dart';
-
+export 'package:flutter_hooks/flutter_hooks.dart';
+export 'package:hooks_riverpod/hooks_riverpod.dart';
 //Logica
 //Todos los modelos que la aplicacion necesite
+export 'package:gmail_clone/logic/controller/user_logic.dart';
+export 'package:gmail_clone/logic/state_providers.dart';
+
 //
 
 //Rutas

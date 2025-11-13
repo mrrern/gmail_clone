@@ -37,3 +37,4 @@ class FormNotifier extends StateNotifier<FormCustomState> {
 final formProvider = StateNotifierProvider<FormNotifier, FormCustomState>(
   (ref) => FormNotifier(FormCustomState())
 );
+

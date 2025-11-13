@@ -7,3 +7,7 @@ const red = Colors.red;
 const yellow = Colors.yellow;
 const green = Colors.green;
 const white = Colors.white;
+
+
+final emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+

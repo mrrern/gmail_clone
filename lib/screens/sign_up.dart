@@ -16,18 +16,29 @@ class _ScreenSignState extends ConsumerState<ScreenSign> {
   final formNotifier = ref.read(formProvider.notifier);
   final isVisible = ref.watch(obscureProvider.notifier).state;
 
-  final controllerName = TextEditingController();
-  final controllerPass = TextEditingController();
-  final controllerEmail = TextEditingController();
+  
+  
 
    void submit() {
     if(formKey.currentState!.validate()) {
       formKey.currentState!.save();
 
+      final email = formState.email;
+      final password = formState.password;
+
+      final emailCorrect = "minombre@to.com";
+      final passwordCorrect = "tucontrase;asegura 123";
+
+      if (email == emailCorrect && passwordCorrect == password) {
+        context.go('/dashboard');
+        
+      }
+
+      
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Nombre: ${formState.name}, email: ${formState.email} '))
       );
-      context.go('/dashboard');
+      
     }
   }
  
@@ -75,10 +86,13 @@ class _ScreenSignState extends ConsumerState<ScreenSign> {
                             children: [
                               TextFormField(
                                 keyboardType: TextInputType.emailAddress,
-                                controller: controllerEmail,
+                                
                                 validator: (value) {
-                                  if (value!.isEmpty || value == null) {
+                                  if (value!.isEmpty) {
                                     return 'Por favor introduce email';
+                                  }
+                                  if(!emailValid.hasMatch(value)) {
+                                    "No es un correo valido";
                                   }
                                   return null; 
                                 },
@@ -119,7 +133,7 @@ class _ScreenSignState extends ConsumerState<ScreenSign> {
                               TextFormField(
                                 keyboardType: TextInputType.name,
                                 validator: (value) {
-                                  if (value!.isEmpty || value == null) {
+                                  if (value!.isEmpty) {
                                     return 'Por favor introduce nombre';
                                   }
                                   return null; 
@@ -161,8 +175,11 @@ class _ScreenSignState extends ConsumerState<ScreenSign> {
                                  keyboardType: TextInputType.name,
                                  obscureText: isVisible,
                                 validator: (value) {
-                                  if (value!.isEmpty || value == null) {
+                                  if (value!.isEmpty) {
                                     return 'Por favor introduce contraseña';
+                                  }
+                                  if(value.length < 8 ) {
+                                    "Contraseña muy corta";
                                   }
                                   return null; 
                                 },
@@ -225,45 +242,6 @@ class _ScreenSignState extends ConsumerState<ScreenSign> {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class CustomTextField extends StatelessWidget {
-  String hint;
-  TextEditingController? controller;
-  CustomTextField({super.key, required this.hint, required this.controller});
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      autocorrect: false,
-
-      decoration: InputDecoration(
-        border: InputBorder.none,
-        enabled: true,
-        focusColor: blue,
-        fillColor: blue,
-        hintText: hint,
-
-        contentPadding: EdgeInsets.all(2),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: red),
-          borderRadius: BorderRadius.circular(20),
-          gapPadding: 5,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: blue),
-          gapPadding: 5,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: blue),
-          borderRadius: BorderRadius.circular(20),
-          gapPadding: 5,
         ),
       ),
     );

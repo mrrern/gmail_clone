@@ -5,10 +5,13 @@ export 'package:google_fonts/google_fonts.dart';
 export 'package:go_router/go_router.dart';
 export 'package:flutter_hooks/flutter_hooks.dart';
 export 'package:hooks_riverpod/hooks_riverpod.dart';
+
+
 //Logica
 //Todos los modelos que la aplicacion necesite
 export 'package:gmail_clone/logic/controller/user_logic.dart';
 export 'package:gmail_clone/logic/state_providers.dart';
+export 'package:gmail_clone/logic/controller/email/email_model.dart';
 
 //
 
@@ -28,6 +31,8 @@ export 'package:gmail_clone/screens/dashboard.dart';
 //Widgets personalizados
 // Todos los widgets reutilizables que vayamos a contruir
 //
+export 'package:gmail_clone/widgets/email.detail.dart';
+
 
 //Temas
 //Constantes y temas

@@ -9,9 +9,12 @@ part 'email_model.g.dart';
 abstract class EmailModel with _$EmailModel {
   const factory EmailModel({
     required int id,
+    String? remitente,
     String? asunto,
     required String message,
-    String? image,
+    List<String>? images,
+    required bool isRead,
+    required DateTime date,
   }) = _EmailModel;
 
   factory EmailModel.fromJson(Map<String, Object?> json) => _$EmailModelFromJson(json);

@@ -22,7 +22,7 @@ class _PortalInicialState extends State<PortalInicial> {
         actions: [
           TextButton(
             onPressed: () {
-              context.push('/iniciar_sesion');
+              context.push('/dashboard');
             },
             child: Container(
               padding: EdgeInsets.all(8),

@@ -1,9 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-
 part 'email_model.freezed.dart';
 part 'email_model.g.dart';
-
 
 @freezed
 abstract class EmailModel with _$EmailModel {
@@ -11,11 +9,12 @@ abstract class EmailModel with _$EmailModel {
     required int id,
     String? remitente,
     String? asunto,
-    required String message,
+    String? message,
     List<String>? images,
     required bool isRead,
-    required DateTime date,
+    @JsonKey(name: 'fecha') required DateTime date,
   }) = _EmailModel;
 
-  factory EmailModel.fromJson(Map<String, Object?> json) => _$EmailModelFromJson(json);
+  factory EmailModel.fromJson(Map<String, Object?> json) =>
+      _$EmailModelFromJson(json);
 }

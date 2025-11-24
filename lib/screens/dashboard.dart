@@ -28,7 +28,7 @@ class Dashboard extends ConsumerWidget {
                   ),
                 ),
                 subtitle: Text(
-                  email.message,
+                  email.message ?? "Sin mensaje",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -39,10 +39,11 @@ class Dashboard extends ConsumerWidget {
             },
           );
         },
-        error: (error, stack)  {
+        error: (error, stack) {
           print(error);
           print(stack);
-          return Center(child: Text("Error: $error"));},
+          return Center(child: Text("Error: $error"));
+        },
         loading: () => const Center(child: CircularProgressIndicator()),
       ),
     );

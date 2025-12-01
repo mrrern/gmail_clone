@@ -1,4 +1,5 @@
 import 'package:gmail_clone/routes/imports.dart';
+import 'package:gmail_clone/logic/auth/presentation/auth_controller.dart';
 
 class ScreenSign extends StatefulHookConsumerWidget {
   const ScreenSign({super.key});
@@ -8,40 +9,36 @@ class ScreenSign extends StatefulHookConsumerWidget {
 }
 
 class _ScreenSignState extends ConsumerState<ScreenSign> {
-  
   @override
   Widget build(BuildContext context) {
-  final formKey = GlobalKey<FormState>();
-  final formState = ref.watch(formProvider);
-  final formNotifier = ref.read(formProvider.notifier);
-  final isVisible = ref.watch(obscureProvider.notifier).state;
+    final formKey = GlobalKey<FormState>();
+    final formState = ref.watch(authFormProvider);
+    final formNotifier = ref.read(authFormProvider.notifier);
 
-  
-  
+    void submit() {
+      if (formKey.currentState!.validate()) {
+        formKey.currentState!.save();
 
-   void submit() {
-    if(formKey.currentState!.validate()) {
-      formKey.currentState!.save();
+        final email = formState.email;
+        final password = formState.password;
 
-      final email = formState.email;
-      final password = formState.password;
+        final emailCorrect = "minombre@to.com";
+        final passwordCorrect = "tucontrase;asegura 123";
 
-      final emailCorrect = "minombre@to.com";
-      final passwordCorrect = "tucontrase;asegura 123";
+        if (email == emailCorrect && passwordCorrect == password) {
+          context.go('/dashboard');
+        }
 
-      if (email == emailCorrect && passwordCorrect == password) {
-        context.go('/dashboard');
-        
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Nombre: ${formState.name}, email: ${formState.email} ',
+            ),
+          ),
+        );
       }
-
-      
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Nombre: ${formState.name}, email: ${formState.email} '))
-      );
-      
     }
-  }
- 
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -74,7 +71,10 @@ class _ScreenSignState extends ConsumerState<ScreenSign> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('Registrar usuario', style: GoogleFonts.roboto(fontSize: 25),),
+                        child: Text(
+                          'Registrar usuario',
+                          style: GoogleFonts.roboto(fontSize: 25),
+                        ),
                       ),
                       Form(
                         autovalidateMode: AutovalidateMode.onUnfocus,
@@ -86,36 +86,39 @@ class _ScreenSignState extends ConsumerState<ScreenSign> {
                             children: [
                               TextFormField(
                                 keyboardType: TextInputType.emailAddress,
-                                
+
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return 'Por favor introduce email';
                                   }
-                                  if(!emailValid.hasMatch(value)) {
+                                  if (!emailValid.hasMatch(value)) {
                                     "No es un correo valido";
                                   }
-                                  return null; 
+                                  return null;
                                 },
-                                onSaved: (newValue) => formNotifier.setEmail(newValue!),
-                               
-                                
+                                onSaved: (newValue) =>
+                                    formNotifier.setEmail(newValue!),
+
                                 autocorrect: false,
-                      
+
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   enabled: true,
                                   focusColor: blue,
                                   fillColor: blue,
                                   hintText: "email",
-                      
+
                                   contentPadding: EdgeInsets.all(2),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(color: red),
                                     borderRadius: BorderRadius.circular(20),
                                     gapPadding: 5,
                                   ),
-                                  errorStyle: GoogleFonts.roboto(color: red, fontSize: 10),
-                                  
+                                  errorStyle: GoogleFonts.roboto(
+                                    color: red,
+                                    fontSize: 10,
+                                  ),
+
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(color: blue),
                                     gapPadding: 5,
@@ -136,27 +139,30 @@ class _ScreenSignState extends ConsumerState<ScreenSign> {
                                   if (value!.isEmpty) {
                                     return 'Por favor introduce nombre';
                                   }
-                                  return null; 
+                                  return null;
                                 },
-                               onSaved: (name) => formNotifier.setName(name!),
-                               
+                                onSaved: (name) => formNotifier.setName(name!),
+
                                 autocorrect: false,
-                      
+
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   enabled: true,
                                   focusColor: blue,
                                   fillColor: blue,
                                   hintText: "Nombre",
-                      
+
                                   contentPadding: EdgeInsets.all(2),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(color: red),
                                     borderRadius: BorderRadius.circular(20),
                                     gapPadding: 5,
                                   ),
-                                  errorStyle: GoogleFonts.roboto(color: red, fontSize: 10),
-                                  
+                                  errorStyle: GoogleFonts.roboto(
+                                    color: red,
+                                    fontSize: 10,
+                                  ),
+
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(color: blue),
                                     gapPadding: 5,
@@ -169,43 +175,49 @@ class _ScreenSignState extends ConsumerState<ScreenSign> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 25,),
-                              
+                              SizedBox(height: 25),
+
                               TextFormField(
-                                 keyboardType: TextInputType.name,
-                                 obscureText: isVisible,
+                                keyboardType: TextInputType.name,
+                                obscureText: formState.obscurePassword,
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return 'Por favor introduce contraseña';
                                   }
-                                  if(value.length < 8 ) {
+                                  if (value.length < 8) {
                                     "Contraseña muy corta";
                                   }
-                                  return null; 
+                                  return null;
                                 },
-                              
+
                                 onSaved: (newValue) {
                                   formNotifier.setPassword(newValue!);
                                 },
-                                
-                                
+
                                 autocorrect: false,
-                      
+
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   enabled: true,
                                   focusColor: blue,
                                   fillColor: blue,
                                   hintText: "Contraseña",
-                                  suffixIcon: GestureDetector(onTap: () { ref.read(obscureProvider.notifier).state = !ref.read(obscureProvider.notifier).state ;}, child: Icon(Icons.remove_red_eye), ) ,
+                                  suffixIcon: GestureDetector(
+                                    onTap: () =>
+                                        formNotifier.togglePasswordVisibility(),
+                                    child: Icon(Icons.remove_red_eye),
+                                  ),
                                   contentPadding: EdgeInsets.all(2),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(color: red),
                                     borderRadius: BorderRadius.circular(20),
                                     gapPadding: 5,
                                   ),
-                                  errorStyle: GoogleFonts.roboto(color: red, fontSize: 10),
-                                  
+                                  errorStyle: GoogleFonts.roboto(
+                                    color: red,
+                                    fontSize: 10,
+                                  ),
+
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(color: blue),
                                     gapPadding: 5,
@@ -217,11 +229,10 @@ class _ScreenSignState extends ConsumerState<ScreenSign> {
                                     gapPadding: 5,
                                   ),
                                 ),
-
                               ),
-                      
+
                               SizedBox(height: 25),
-                      
+
                               TextButton(
                                 onPressed: submit,
                                 style: ButtonStyle(

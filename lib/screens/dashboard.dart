@@ -1,4 +1,4 @@
-import 'package:gmail_clone/logic/email_services.dart';
+import 'package:gmail_clone/logic/emails/presentation/email_controller.dart';
 import 'package:gmail_clone/routes/imports.dart';
 
 class Dashboard extends ConsumerWidget {
@@ -6,7 +6,7 @@ class Dashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final emailsList = ref.watch(leemeLosDatos);
+    final emailsList = ref.watch(emailListProvider);
     return Scaffold(
       appBar: AppBar(),
       body: emailsList.when(
